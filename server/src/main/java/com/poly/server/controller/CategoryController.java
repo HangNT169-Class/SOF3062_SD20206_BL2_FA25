@@ -1,11 +1,15 @@
 package com.poly.server.controller;
 
+import com.poly.server.model.request.CategoryRequest;
 import com.poly.server.model.response.CategoryResponse;
 import com.poly.server.service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +51,7 @@ public class CategoryController {
     public void removeCate(@RequestParam("id2") Long id){
         cateService.remove(id);
     }
+
     // Phan trang tu lam not
     @GetMapping("paging")
     public List<CategoryResponse> phanTrang(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize) {
@@ -54,4 +59,8 @@ public class CategoryController {
     }
 
     // Buoi hom sau: Add & Update & Expection
+    @PostMapping("add")
+    public void addCate(@Valid @RequestBody CategoryRequest categoryRequest){
+        cateService.addCategory(categoryRequest);
+    }
 }
